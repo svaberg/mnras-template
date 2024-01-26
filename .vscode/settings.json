@@ -1,0 +1,90 @@
+{
+    "files.trimTrailingWhitespace": true,
+    "workbench.colorCustomizations": {
+        "editor.inactiveSelectionBackground": "#cc2222", //This makes the problems so I can finally see them.
+    },
+    // "workbench.colorTheme": "Monokai",
+    "terminal.integrated.inheritEnv": false,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "editor.minimap.enabled": false,
+    "kite.showWelcomeNotificationOnStartup": false,
+    "latex-workshop.intellisense.bibtexJSON.replace": {
+
+
+    },
+    "latex-workshop.latex.recipe.default": "Makefile build",
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "Makefile build",
+            "tools": [
+                "make"
+            ]
+        },
+      ],
+  "latex-workshop.latex.tools": [
+      {
+        "name": "make",
+        "command": "make",
+        "args": []
+    },
+  ],
+  "latex-workshop.intellisense.citation.label": "authors",
+  "latex-workshop.latex.search.rootFiles.include": [
+      "paper.tex"
+  ],
+  "latex-workshop.linting.chktex.enabled": true,
+  "latex-workshop.message.latexlog.exclude": [
+    "Size substitutions with differences.*",
+    "Font shape .* not available",
+    "Unknown option `a4paper'.",
+    "\"lr\": suggestions .*",
+    "Underfull ..box .*",
+    "Overfull ..box .*",
+  ],
+  "latex-workshop.message.bibtexlog.exclude": [
+      "can.t use both author and editor fields.*",
+      "string name .a9. is undefined.*"
+  ],
+  "html.format.extraLiners": "",
+  "json.schemas": [],
+  "spellright.language": [
+    "en-GB"
+],
+"spellright.documentTypes": [
+    "markdown",
+    "latex",
+    "plaintext",
+    "jsonc"
+],
+"spellright.latexSpellParameters": [
+      "author",
+      "title",
+      "subtitle",
+      "date",
+      "chapter",
+      "section\\*?",
+      "subsection\\*?",
+      "subsubsection\\*?",
+      "part",
+      "paragraph",
+      "subparagraph",
+      "text(rm|sf|tt|md|bf|up|it|sl|sc|normal)",
+      "underline",
+      "emph",
+      "item",
+      "footnote(text)?",
+      "caption(of)?",
+      "multicolumn",
+      "href",
+      "hyperref",
+      "institute",
+      "frametitle",
+      "framesubtitle",
+      "begin\\{frame\\}",
+  ],
+  "spellright.groupDictionaries": false,
+  "spellright.ignoreRegExps": [
+    "chktex.*",
+],
+  }
+

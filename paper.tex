@@ -1,0 +1,321 @@
+ % !TeX root = ./paper.tex
+% !BIB program = bibtex
+
+% chkTeX linting rules to ignore:
+% chktex-file 2   Non-breaking space should have been used.
+% chktex-file 3   You should enclose the previous parenthesis with {}
+% chktex-file 8   Wrong length of dash may have been used
+% chktex-file 21  This command might not be intended
+% chktex-file 39  Double space found
+
+% mnras_template.tex
+%
+% LaTeX template for creating an MNRAS paper
+%
+% v3.0 released 14 May 2015
+% (version numbers match those of mnras.cls)
+% Copyright (C) Royal Astronomical Society 2015
+% Authors:
+% Keith T. Smith (Royal Astronomical Society)
+
+% Change log
+
+%
+% v3.0 May 2015
+%    Renamed to match the new package name
+%    Version number matches mnras.cls
+%    A few minor tweaks to wording
+% v1.0 September 2013
+%    Beta testing only - never publicly released
+%    First version: a simple (ish) template for creating an MNRAS paper
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Basic setup. Most papers should leave these options alone.
+\documentclass[a4paper,fleqn,usenatbib]{mnras}
+%\documentclass[draft,a4paper,fleqn,usenatbib]{mnras}
+
+% MNRAS is set in Times font. If you don't have this installed (most LaTeX
+% installations will be fine) or prefer the old Computer Modern fonts, comment
+% out the following line
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{dblfloatfix}  % To be removed
+% Depending on your LaTeX fonts installation, you might get better results with one of these:
+%\usepackage{mathptmx}
+%\usepackage{txfonts}
+
+% \usepackage{tensor}
+% \usepackage{tensind}
+% \tensordelimiter{?}
+
+% Use vector fonts, so it zooms properly in on-screen viewing software
+% Don't change these lines unless you know what you are doing
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+% \usepackage{placeins}  % Only for the appendix where we use \FloatBarrier
+
+
+%%%%% AUTHORS - PLACE YOUR OWN PACKAGES HERE %%%%%
+
+%
+% Only include extra packages if you really need them. Common packages are:
+%
+\usepackage{graphicx}	% Including figure files
+
+% There are redefined below on my machine; the following
+% code makes this not produce an error which stops the compilation.
+\ifdefined\Bbbk{}
+    \let\Bbbk\relax
+\else
+    % Do nothing.
+\fi
+\ifdefined\bigtimes{}
+    \let\bigtimes\relax
+\else
+    % Do nothing.
+\fi
+% \usepackage{amsmath}	% Advanced maths commands (amsmath should be loaded by newtxmath)
+% \usepackage{amssymb}	% Extra maths symbols (amssymb should be loaded by newtxmath)
+\usepackage[separate-uncertainty=true,
+            multi-part-units=single]{siunitx}
+\usepackage{pgf}
+\usepackage{xprintlen}
+\usepackage{booktabs}
+
+\let\widebar\relax  % See https://tex.stackexchange.com/questions/426091/command-widering-already-defined
+\usepackage{mathabx}  % For Earth and Sun symbols (required \let\widebar\relax)
+
+\usepackage{wasysym}
+
+\usepackage{sparklines}  % No longer used
+\usepackage{orcidlink} % This is for including the ORCID ID
+\usepackage{lipsum}  % To generate dummy text
+
+
+%
+% Add pdf properties test.
+%
+\pdfminorversion=5  % Recommended in MNRAS submission
+
+% \hypersetup{pdfusetitle=true}  % Could not get this to work
+\hypersetup{pdfauthor={D. Evensberget et al.}}  % Might not work with mnras??
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%% AUTHORS - PLACE YOUR OWN COMMANDS HERE %%%%%
+
+% Please keep new commands to a minimum, and use \newcommand not \def to avoid
+% overwriting existing commands. Example:
+
+% TODO use \renewcommand
+\newcommand{\batsrus}{{\textsc{bats-r-us}}}
+\newcommand{\swmf}{{\textsc{swmf}}}
+\newcommand{\awsom}{{\textsc{awsom}}}
+\renewcommand{\pluto}{{\textsc{pluto}}} % Interferes with Pluto symbol in wasysym
+\newcommand{\toupies}{TOUPIES}
+\newcommand{\bcool}{{\textsc{BCool}}}
+\newcommand{\ksi}{{\(\xi\)}}
+\newcommand{\SF}{{\Phi}}  % To be able to call Phi0 just phi
+
+% \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+% \newcommand{\summary}[1]{}
+% \newcommand{\selfplagiate}[1]{}
+% \newcommand{\todo}[1]{}
+% \newcommand{\notes}[1]{}
+% \newcommand{\review}[2]{}
+% \newcommand{\response}[2]{#2}
+% \renewcommand{\summary}[1]{{\color{darkgreen}#1}}  % If commented out, this hides all the summary fields
+% \renewcommand{\selfplagiate}[1]{{\color{gray}#1}}  % If commented out, this hides all the self plagiate material to be rewritten.
+% \renewcommand{\todo}[1]{{\color{magenta}{\bf TODO}: #1}}  % If commented out, this hides all the todo fields
+% \renewcommand{\notes}[1]{{\color{magenta}#1}}  % If commented out, this hides the notes fields
+% \renewcommand{\review}[2]{{\color{orange}\textsuperscript{(Reviewer comment #1)}\ignorespaces{}#2}}  % If commented out, this hides all the review formatting
+% \renewcommand{\response}[2]{{\color{red}\textsuperscript{(#1)}\ignorespaces{}#2}}  % If commented out, this hides all the review formatting
+
+
+% \newcommand{\tensorindices}[1]{{#1}}
+% \renewcommand{\tensorindices}[1]{\mathrm{\emph{#1}}}
+% \newcommand{\TI}[1]{\tensorindices{#1}}
+
+
+% \newcommand{\stackpm}[2]{\substack{+#1 \\ -#2}}
+        % \addlinespace[.5ex] Mel25-21  & \(0.90\substack{+0.05 \\ -0.05}\) & 0\\
+        % \addlinespace[.5ex] Mel25-43  & \(0.90{\tiny +0.05 \atop -0.05}\) & 0\\
+
+\listfiles
+\newcommand{\Wind}{\textsc{w}} % "Wind" subscript
+\newcommand{\Rot}{\text{rot}}  % "Rotation" subscript
+\newcommand{\Obs}{\text{obs}}  % Observation-based gyrotrack (Gallet & Bouvier 2013)
+\newcommand{\Sat}{\text{sat}}  % "Saturation" subscript
+\newcommand{\Xray}{\textsc{x}} % X-ray subscript
+\newcommand{\Alfven}{{\textsc{a}}} % Alfvén (radius, speed, etc.)
+\newcommand{\corona}{\text{c}} % Corona subscript
+\newcommand{\bol}{\text{bol}} % Bolometric subscript
+\newcommand{\Mag}{\text{mag}} % "mag" magnetic subscript
+\newcommand{\Open}{\text{open}} % "open" subscript
+\newcommand{\HK}{\textsc{hk}} % Ca II H & K lines
+\newcommand{\Star}{\text{\bigstar}} % Star subscript a la Sun subscript. A bit bigger than \star.
+\newcommand{\CS}{{{\scriptscriptstyle{B}}}} % Current sheet subscript
+
+
+% Citation aliases
+% \defcitealias{2016MNRAS.457..580F}{F16}
+% \defcitealias{2018MNRAS.474.4956F}{F18}
+% Use like this: \citetalias{2016MNRAS.457..580F} and \citetalias{2018MNRAS.474.4956F}
+% Or this: \citetalias{2016MNRAS.457..580F,2018MNRAS.474.4956F}
+
+\defcitealias{2013A&A...556A..36G}{GB13}  % Gallet & Bouvier (2013)
+
+
+%See https://tex.stackexchange.com/a/212071/120322 about \mathchoice
+% TODO try with just \textsc{zdi}, etc.
+\newcommand{\ZDI}{{\mathchoice{}{}{\scriptscriptstyle}{}\mathrm{ZDI}}}
+\newcommand{\ZB}{{\mathchoice{}{}{\scriptscriptstyle}{}\mathrm{ZB}}}
+\newcommand{\Hollweg}{{\mathchoice{}{}{\scriptscriptstyle}{}\mathrm{H}}}
+\newcommand{\Spitzer}{{\mathchoice{}{}{\scriptscriptstyle}{}\mathrm{S}}}
+\newcommand{\SStar}{{\mathchoice{}{}{\scriptscriptstyle}{}\mathrm{\bigstar}}}
+\newcommand{\Skumanich}{\textsc{s}}
+
+\renewcommand{\Earth}{{\mathchoice{}{}{\scriptscriptstyle}{}\oplus}} % Sun subscript
+\renewcommand{\Sun}{{\mathchoice{}{}{\scriptscriptstyle}{}\odot}} % Sun subscript
+\renewcommand{\Star}{{\mathchoice{}{}{\scriptscriptstyle}{}\bigstar}} % Sun subscript
+
+
+\newcommand{\onlineref}[1]{\ref{#1} (on-line supplement)}
+% \renewcommand{\onlineref}[1]{(on-line supplement)}
+
+
+% SiUnitX aliases
+\DeclareSIUnit\year{yr}
+\DeclareSIUnit\astronomicalunit{au}
+\DeclareSIUnit\parsec{pc}
+\DeclareSIUnit\erg{erg}
+\DeclareSIUnit\gauss{G}
+\DeclareSIUnit\mSun{\mbox{\(M_\Sun\)}}
+\DeclareSIUnit\rSun{\mbox{\(R_\Sun\)}}
+\DeclareSIUnit\mEarth{\mbox{\(M_\Earth\)}}
+\DeclareSIUnit\rEarth{\mbox{\(R_\Earth\)}}
+% For the use of \mbox, see https://tex.stackexchange.com/q/239863
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}} % Boldface vectors instead of arrow superscript vectors
+\newcommand{\uvec}[1]{\boldsymbol{\hat{#1}}} % Unit vector: Boldface with hat
+
+\newcommand\thefont{\expandafter\string\the\font} % chktex 41
+
+%Give proper spacing around \propto
+%Found the underlying symbol by doing \(\show \propto\) and looking in the log.
+\renewcommand{\propto}{\mathrel{\mathchar"939}} % chktex 18 this is if using newtxmath.
+\newcommand{\mysim}{{\sim}} % Not so much spacing around for writing ~2 Gyr, etc.
+
+% https://tex.stackexchange.com/questions/33538/how-to-get-an-approximately-proportional-to-symbol
+\newcommand{\appropto}{\mathrel{\vcenter{  % chktex 41
+  \offinterlineskip\halign{\hfil\(##\)\cr   % chktex 41
+    \propto\cr\noalign{\kern2pt}\sim\cr\noalign{\kern-2pt}}}}}   % chktex 41
+
+% Glyphs to identify cases
+\usepackage{star-commands}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
+%
+% Title of the paper, and the short title which is used in the headers.
+% Keep the title short and informative.
+
+\title[Rotational evolution]
+    {Rotational evolution}
+%
+% The list of authors, and the short list which is used in the headers.
+% If you need two or more lines of authors, add an extra line  using \newauthor
+\author[D. Evensberget et al.]{
+    D. Evensberget \orcidlink{0000-0001-7810-8028}\(^{1}\)\thanks{E-mail: \href{mailto:evensberget@strw.leidenuniv.nl}{evensberget@strw.leidenuniv.nl}},
+    coauthors
+    % A. A. Vidotto  \orcidlink{0000-0001-5371-2675}\(^{1}\),
+    %,
+    % K. M. Strickert  \orcidlink{0000-0001-6584-5969}\(^{1}\),
+    % and
+    % C. P. Folsom    \orcidlink{0000-0002-9023-7890}\(^{2,3}\)
+    % R. D. Kavanagh  \orcidlink{0000-0002-1486-7188}\(^{5,1}\),
+    % J. S. Pineda    \orcidlink{0000-0002-4489-0135}\(^{6}\),
+    % \newauthor
+    % F. A. Driessen  \orcidlink{0000-0003-3005-7377}\(^{1}\),
+    % and maybe
+    % S. C. Marsden  \orcidlink{0000-0001-5522-8887}\(^{2}\),
+    % B. D. Carter   \orcidlink{0000-0003-0035-8769}\(^{2}\),
+    % R. Salmeron    \orcidlink{0000-0002-1956-4493}\(^{2}\),
+    \\
+    % List of institutions
+    \(^{1}\)Leiden Observatory, Leiden University, PO Box 9513, 2300 RA Leiden, The Netherlands
+    % \\
+    % \(^{2}\)Centre for Astrophysics, University of Southern Queensland, Toowoomba, Queensland 4350, Australia
+    % \\
+    % \(^{2}\)Tartu Observatory, University of Tartu, Observatooriumi 1, T\~{o}ravere, 61602 Tartumaa, Estonia
+    % \\
+    % \(^{3}\)University of Western Ontario, Department of Physics \& Astronomy, London, ON, N6A 3K7, Canada
+    % \\
+    % \(^{5}\)ASTRON, The Netherlands Institute for Radio Astronomy, Oude Hogeveensedijk 4, 7991PD, Dwingeloo, The Netherlands
+    % \\
+    % \(^{6}\)University of Colorado Boulder, Laboratory for Atmospheric and Space Physics, 3665 Discovery Drive, Boulder, CO 80303, USA
+}
+
+%
+% These dates will be filled out by the publisher
+\date{Accepted XXX.\@ Received YYY;\@ in original form ZZZ}
+%
+% Enter the current year, for the copyright statements etc.
+\pubyear{2024}
+%
+
+% Don't change these lines
+\begin{document}
+\label{firstpage}  % chktex 24
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+%
+% Abstract of the paper
+\begin{abstract}
+    \input{abstract}
+\end{abstract}
+
+% Select between one and six entries from the list of approved keywords.
+% Don't make up new ones.
+\begin{keywords}
+    stars: winds, outflows --
+    stars: rotation --
+    stars: magnetic field --
+    stars: solar-type --
+    stars: evolution --
+    Sun: evolution
+\end{keywords}
+
+
+
+%Figures are referred to as e.g.\ Fig.~\ref{fig:example_figure}, and tables as
+%e.g.\ Table~\ref{tab:example_table}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{paper-body}
+
+%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
+
+% The best way to enter references is to use BibTeX:
+\bibliographystyle{mnras}
+\bibliography{bibliography} % if your bibtex file is called bibliography.bib
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
+\appendix
+\input{appendices}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Don't change these lines
+\bsp	% typesetting comment % chktex 1
+\label{lastpage} % chktex 24
+
+\clearpage
+% \normalsize  % Otherwise the font size is 8 pt instead of 9 pt in the appendix (for on-line supplement style separate from main paper)
+\end{document}
+
+% End of mnras_template.tex

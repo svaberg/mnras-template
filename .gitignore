@@ -1,0 +1,36 @@
+# Mac stuff
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints
+
+# Template
+mnras.zip
+mnras
+
+# Figures that are either generated or should otherwise not be versioned.
+analysis/*.png
+analysis/*.pdf
+analysis/*.pgf
+analysis/*.tex
+
+__latexindent_temp.tex
+
+# Tex intermediate files
+*.aux
+*.bbl
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+
+# Output file
+paper*.pdf
+paper*e.dvi
+
+# Stuff for the unicode abstract
+unicode-abstract.*
+abstract.html

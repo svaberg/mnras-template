@@ -1,0 +1,166 @@
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usepackage{xstring}
+
+% Matplotlib default colour cycle colours
+\definecolor{C0}{HTML}{1f77b4}  % Used grey 808080 in paper 2.
+\definecolor{C1}{HTML}{ff7f0e}
+\definecolor{C2}{HTML}{2ca02c}
+\definecolor{C3}{HTML}{d62728}
+\definecolor{C4}{HTML}{9467bd}
+\definecolor{C5}{HTML}{8c564b}
+\definecolor{C6}{HTML}{e377c2}
+\definecolor{C7}{HTML}{7f7f7f}
+
+% Robust shorthand for \SimCase. Usage:
+%\C5F for the case 5xHII296, and so on.
+% The command is 'robustly' declared to permit usage in captions.
+\DeclareRobustCommand{\C}[1]{\SimCase{#1}}
+
+% Usage:
+% \SimCase{2}{F} for the case 2xHII296, and so on.
+\newcommand{\SimCase}[2]{%
+    \IfStrEqCase{#2}{
+        {Z}{\NumScaled{#1}{#2}{black}{Sun}}%
+        {0}{\NumScaled{#1}{#2}{C0}{Mel25\nobreakdash-5}}%
+        {1}{\NumScaled{#1}{#2}{C0}{Mel25\nobreakdash-21}}%
+        {2}{\NumScaled{#1}{#2}{C0}{Mel25\nobreakdash-43}}%
+        {3}{\NumScaled{#1}{#2}{C0}{Mel25\nobreakdash-151}}%
+        {4}{\NumScaled{#1}{#2}{C0}{Mel25\nobreakdash-179}}%
+        {5}{\NumScaled{#1}{#2}{C1}{AV\,523}}%
+        {6}{\NumScaled{#1}{#2}{C1}{AV\,1693}}%
+        {7}{\NumScaled{#1}{#2}{C1}{AV\,1826}}%
+        {8}{\NumScaled{#1}{#2}{C1}{AV\,2177}}%
+        {9}{\NumScaled{#1}{#2}{C1}{TYC\,1987}}%
+        {A}{\NumScaled{#1}{#2}{C2}{DX\,Leo}}%
+        {B}{\NumScaled{#1}{#2}{C2}{EP\,Eri}}%
+        {C}{\NumScaled{#1}{#2}{C2}{HH\,Leo}}%
+        {D}{\NumScaled{#1}{#2}{C2}{V439\,And}}%
+        {E}{\NumScaled{#1}{#2}{C2}{V447\,Lac}}%
+        {F}{\NumScaled{#1}{#2}{C3}{HII\,296}}%
+        {G}{\NumScaled{#1}{#2}{C3}{HII\,739}}%
+        {H}{\NumScaled{#1}{#2}{C3}{PELS\,031}}%
+        {I}{\NumScaled{#1}{#2}{C4}{BD\nobreakdash-07\,2388}}%
+        {J}{\NumScaled{#1}{#2}{C4}{HD\,6569}}%
+        {K}{\NumScaled{#1}{#2}{C4}{HIP\,10272}}%
+        {L}{\NumScaled{#1}{#2}{C4}{HIP\,76768}}%
+        {M}{\NumScaled{#1}{#2}{C4}{LO\,Peg}}%
+        {N}{\NumScaled{#1}{#2}{C4}{PW\,And}}%
+        {O}{\NumScaled{#1}{#2}{C4}{TYC\,0486}}%
+        {P}{\NumScaled{#1}{#2}{C4}{TYC\,5164}}%
+        {Q}{\NumScaled{#1}{#2}{C5}{BD-16\,351}}%
+        {R}{\NumScaled{#1}{#2}{C6}{HIP\,12545}}%
+        {S}{\NumScaled{#1}{#2}{C6}{TYC\,6349}}%
+        {T}{\NumScaled{#1}{#2}{C6}{TYC\,6878}}%
+    }
+    [(STAR NOT FOUND)]%
+}
+
+\newcommand{\SimSymbol}[2]{%
+    \IfStrEqCase{#2}{
+        {Z}{\NumScaled{#1}{#2}{black}}%
+        {0}{\NumScaled{#1}{#2}{C0}}
+        {1}{\NumScaled{#1}{#2}{C0}}
+        {2}{\NumScaled{#1}{#2}{C0}}
+        {3}{\NumScaled{#1}{#2}{C0}}
+        {4}{\NumScaled{#1}{#2}{C0}}
+        {5}{\NumScaled{#1}{#2}{C1}}
+        {6}{\NumScaled{#1}{#2}{C1}}
+        {7}{\NumScaled{#1}{#2}{C1}}
+        {8}{\NumScaled{#1}{#2}{C1}}
+        {9}{\NumScaled{#1}{#2}{C1}}
+        {A}{\NumScaled{#1}{#2}{C2}}
+        {B}{\NumScaled{#1}{#2}{C2}}
+        {C}{\NumScaled{#1}{#2}{C2}}
+        {D}{\NumScaled{#1}{#2}{C2}}
+        {E}{\NumScaled{#1}{#2}{C2}}
+        {F}{\NumScaled{#1}{#2}{C3}}
+        {G}{\NumScaled{#1}{#2}{C3}}
+        {H}{\NumScaled{#1}{#2}{C3}}
+        {I}{\NumScaled{#1}{#2}{C4}}
+        {J}{\NumScaled{#1}{#2}{C4}}
+        {K}{\NumScaled{#1}{#2}{C4}}
+        {L}{\NumScaled{#1}{#2}{C4}}
+        {M}{\NumScaled{#1}{#2}{C4}}
+        {N}{\NumScaled{#1}{#2}{C4}}
+        {O}{\NumScaled{#1}{#2}{C4}}
+        {P}{\NumScaled{#1}{#2}{C4}}
+        {Q}{\NumScaled{#1}{#2}{C5}}
+        {R}{\NumScaled{#1}{#2}{C6}}
+        {S}{\NumScaled{#1}{#2}{C6}}
+        {T}{\NumScaled{#1}{#2}{C6}}
+    }
+    [(STAR NOT FOUND)]%
+}
+
+% For example \NumScaled{5}{D}{C2}
+\newcommand{\NumScaled}[3]{%
+    \IfStrEqCase{#1}{
+        {1}{\Unscaled{#2}{#3}}
+        {2}{\TwoScaled{#2}{#3}\(2\times\)}
+        {3}{\TwoScaled{#2}{#3}\(3\times\)}
+        {4}{\TwoScaled{#2}{#3}\(4\times\)}
+        {5}{\Scaled{#2}{#3}\(5\times\)}
+    }
+}
+
+\newcommand{\Unscaled}[2] % num, colour
+{\ignorespaces  % Eat up blank space here
+    \tikz[baseline={([yshift=-.75ex]current bounding box.center)}]
+    {
+        \node
+        [
+            circle,
+            anchor=base,
+            text=white,
+            fill=#2,
+            inner sep=0.7pt,
+            minimum width=0.24cm
+        ]
+        (M)
+        {
+            \tiny{#1}
+        };
+    }\,\ignorespaces  % This gets the spacing just right between the glyph and text.
+}
+\newcommand{\TwoScaled}[2] % num, colour
+{\ignorespaces  % Eat up blank space here
+    \tikz[baseline={([yshift=-.75ex]current bounding box.center)}]
+    {
+        \node
+        [
+            star,
+            anchor=base,
+            star points=4,
+            shape border rotate=45,
+            star point ratio=2,
+            text=white,
+            fill=#2,
+            inner sep=0.0pt,
+            minimum width=0.37cm
+        ](M)  % chktex 36
+        {
+            \tiny{#1}
+        };
+    }\,\ignorespaces  % This gets the spacing just right between the glyph and text.
+}
+\newcommand{\Scaled}[2] % num, colour
+{\ignorespaces  % Eat up blank space here
+    \tikz[baseline={([yshift=-.75ex]current bounding box.center)}]
+    {
+        \node
+        [
+            star,
+            anchor=base,
+            star point ratio=2,
+            text=white,
+            fill=#2,
+            inner sep=0.0pt,
+            minimum width=0.37cm
+        ](M)  % chktex 36
+        {
+            \tiny{#1}
+        };
+    }\,\ignorespaces  % This gets the spacing just right between the glyph and text.
+}
+
